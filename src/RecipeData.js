@@ -1,5 +1,5 @@
 const RecipeData = {
-    "projects": [
+    "recipes": [
         {
             "id": 1,
             "title": "Nachos",
@@ -51,4 +51,4 @@ const RecipeData = {
     ]
 
 }
-export default ProjectData;
+export default RecipeData;
