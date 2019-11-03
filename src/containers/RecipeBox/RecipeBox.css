@@ -1,3 +1,9 @@
 #recipeBox {
-    background-color: red;
+    background-color: white;
+    display: grid;
+    grid-template-columns: 300px 300px 300px;
+    gap: 15px;
+    width: 930px;
+    margin: auto;
+    margin-top: 30px;
 }

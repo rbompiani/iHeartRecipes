@@ -6,12 +6,20 @@ import RecipeCard from "../../components/RecipeCard/RecipeCard";
 class RecipeBox extends React.Component {
     state=RecipeData;
 
+    heartClickHandler = (id)=>{
+        this.setState(prevState => {
+            return{
+                recipes: prevState.recipes.filter(r => r.id !== id)
+            };
+        });
+    };
+
     render(){
         return(
             <div id="recipeBox">
                 {this.state.recipes.map((recipe, idx) =>{
                     return(
-                        <RecipeCard {...recipe}/>
+                        <RecipeCard key={recipe.id} {...recipe} heartClick={this.heartClickHandler}/>
                     )
                 })}  
             </div>

@@ -1,10 +1,15 @@
 import React from 'react';
 import './App.css';
+import Header from "../Header/Header"
 import RecipeBox from "../RecipeBox/RecipeBox";
 
 function App() {
   return (
-    <RecipeBox />
+    <div>
+      <Header />
+      <RecipeBox />
+    </div>
+
   );
 }
 

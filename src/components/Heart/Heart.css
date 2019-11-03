@@ -1,0 +1,14 @@
+.heart {
+    fill: lightgray;
+    height: 16px;
+    width: 16px;
+    justify-self: end;
+}
+
+.heart:hover {
+    fill: lightcoral;
+}
+
+.fav {
+    fill: red;
+}
