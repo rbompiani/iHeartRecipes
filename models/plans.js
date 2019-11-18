@@ -1,12 +1,14 @@
-// Model for the recipeBox Table
-
-
+// Model for the Plans Table
 module.exports = function(sequelize, DataTypes) {
-    const Favorites = sequelize.define('Favorites', {
+    const Plans = sequelize.define('Plans', {
         id: {
             type: DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true
+        },
+        day: {
+            type: DataTypes.DATEONLY,
+            allowNull: false
         },
         userID: {
             type: DataTypes.INTEGER,
@@ -25,8 +27,5 @@ module.exports = function(sequelize, DataTypes) {
             }
         }
     });
-    return Favorites;
+    return Plans;
 }
-
-
-
