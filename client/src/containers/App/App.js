@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
-import Header from "../Header/Header"
+import {BrowserRouter} from "react-router-dom";
+import Header from "../Header/Header";
 import RecipeBox from "../RecipeBox/RecipeBox";
 
 class App extends Component {
@@ -27,12 +28,14 @@ state = {
 
   render() {
     return (
-      <div>
-        {/*Render the newly fetched data inside of this.state.data*/} 
-        <Header />
-        <RecipeBox />
-        <p className="App-intro">{this.state.data}</p>
-      </div>
+      <BrowserRouter>
+        <div>
+          {/*Render the newly fetched data inside of this.state.data*/} 
+          <Header />
+          <RecipeBox />
+          <p className="App-intro">{this.state.data}</p>
+        </div>      
+      </BrowserRouter>
     );
   }
 }
