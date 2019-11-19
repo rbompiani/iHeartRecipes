@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import {BrowserRouter} from "react-router-dom";
+import {BrowserRouter, Route} from "react-router-dom";
 import Header from "../Header/Header";
 import RecipeBox from "../RecipeBox/RecipeBox";
 
@@ -32,7 +32,7 @@ state = {
         <div>
           {/*Render the newly fetched data inside of this.state.data*/} 
           <Header />
-          <RecipeBox />
+          <Route path="/" exact component={RecipeBox} />
           <p className="App-intro">{this.state.data}</p>
         </div>      
       </BrowserRouter>
