@@ -10,28 +10,32 @@ const RecipeForm = props => (
                     <label for="title">
                         Title:
                     </label>
-                    <input type="text" name="title" size="50" placeholder="Recipe Title"></input>
+                    <input type="text" name="title" size="50" placeholder="Recipe Title" maxLength="100" required></input>
                 </div>
                 <div>
                     <label for="description">
                         Description:
                     </label>
-                    <input type="text" maxlength="100" placeholder="Short description of recipe."></input>
+                    <textarea placeholder="Short description of recipe." rows="3" maxLength="100" ></textarea>
                 </div>
                 <div className="photoUpload">
                     ADD PHOTO
                 </div>
                 <div>
                     <fieldset>
-                        <input type="radio" name="main" value="main"></input> 
-                        <input type="radio" name="side" value="side"></input> 
+                        <input type="radio" name="main" value="main"></input>
+                        <label for="main">main</label> 
+                        <input type="radio" name="side" value="side"></input>
+                        <label for="side">side</label>  
                         <input type="radio" name="appetizer" value="appetizer"></input>  
-                        <input type="radio" name="dessert" value="dessert"></input>    
+                        <label for="appetizer">appetizer</label> 
+                        <input type="radio" name="dessert" value="dessert"></input>
+                        <label for="dessert">dessert</label>     
                     </fieldset>
                 </div>
                 <div>
                     <label for="time">
-                        Yield:
+                        Time:
                     </label>
                     <input type="text" name="time" size="3"></input>
                     <span> minutes</span>
@@ -40,17 +44,17 @@ const RecipeForm = props => (
                     <label for="yield">
                         Yield:
                     </label>
-                    <input type="text" name="yield" size="3"></input>
+                    <input type="number" name="yield" min="1" max="100"></input>
                     <span> servings</span>
                 </div>            
             </fieldset>
             <fieldset>
-                <legend>Ingeredients:</legend>
+                <legend>Ingredients:</legend>
                 <input type="text" name="ingredients1" size="50"></input>
             </fieldset>
             <fieldset>
                 <legend>Instructions:</legend>
-                <input type="text" name="ingredients1" size="50"></input>
+                <input type="text" name="instructions1" size="50"></input>
             </fieldset>
         </form>        
     </div>
