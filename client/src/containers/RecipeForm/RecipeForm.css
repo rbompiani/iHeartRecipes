@@ -3,6 +3,8 @@ form {
     box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, .3);
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    padding: 20px;
 }
 
 label {
@@ -11,12 +13,31 @@ label {
 
 fieldset {
     border: none;
+    padding: 0px;
 }
 
-textarea, input[type="text"]  {
+textarea, input[type="text"], input[type="number"], select{
     padding: 10px;
     box-sizing: border-box;
-    width: 100%;
     border-radius: 5px;
     margin-bottom: 20px;
+}
+
+textarea, input[type="text"]{
+    width: 100%;
+}
+
+#category {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+}
+
+input[type="radio"]+label {
+    display: inline-block;
+}
+
+.ingredient {
+    display: grid;
+    grid-template-columns: 1fr 1fr 3fr;
+    gap: 10px;
 }

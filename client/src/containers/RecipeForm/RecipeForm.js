@@ -23,22 +23,36 @@ const RecipeForm = props => (
                 </div>
                 <div>
                     <fieldset>
-                        <input type="radio" name="main" value="main"></input>
-                        <label for="main">main</label> 
-                        <input type="radio" name="side" value="side"></input>
-                        <label for="side">side</label>  
-                        <input type="radio" name="appetizer" value="appetizer"></input>  
-                        <label for="appetizer">appetizer</label> 
-                        <input type="radio" name="dessert" value="dessert"></input>
-                        <label for="dessert">dessert</label>     
+                        <div id="category">
+                            <div>
+                                <input type="radio" name="main" value="main"></input>
+                                <label for="main">main</label> 
+                            </div>
+                            <div>
+                                <input type="radio" name="side" value="side"></input>
+                                <label for="side">side</label> 
+                            </div>
+                            <div>
+                                <input type="radio" name="appetizer" value="appetizer"></input>  
+                                <label for="appetizer">appetizer</label>                             
+                            </div>
+                            <div>
+                                <input type="radio" name="dessert" value="dessert"></input>
+                                <label for="dessert">dessert</label>                              
+                            </div>
+                        </div>
+
                     </fieldset>
                 </div>
                 <div>
                     <label for="time">
                         Time:
                     </label>
-                    <input type="text" name="time" size="3"></input>
-                    <span> minutes</span>
+                    <input type="number" name="time" min="1" max="200"></input>
+                    <select name="timeUnit">
+                        <option value="minutes">minutes</option>
+                        <option value="hours">hours</option>
+                    </select>
                 </div>  
                 <div>
                     <label for="yield">
@@ -50,11 +64,33 @@ const RecipeForm = props => (
             </fieldset>
             <fieldset>
                 <legend>Ingredients:</legend>
-                <input type="text" name="ingredients1" size="50"></input>
+                <div className="ingredient">
+                    <input type="number" name="ingredientQty1" min="1" max="100" placeholder="1.5"></input>
+                    <select name="ingredientUnit1">
+                        <option value="" selected>measurement</option>
+                        <optgroup label="Volume">
+                            <option value="tsp">tsp</option>
+                            <option value="tbsp">tbsp</option>
+                            <option value="fl oz">fl oz</option>
+                            <option value="c">c</option>
+                            <option value="pt">pt</option>
+                            <option value="gal">gal</option>
+                            <option value="ml">mL</option>
+                            <option value="L">L</option>
+                        </optgroup>
+                            <optgroup label="Weight">
+                            <option value="lb">lb</option>
+                            <option value="oz">oz</option>
+                            <option value="mg">mg</option>
+                            <option value="g">g</option>
+                        </optgroup>
+                    </select>
+                    <input type="text" name="ingredientName1" maxLength="50" placeholder="ingredient"></input>                    
+                </div>
             </fieldset>
             <fieldset>
                 <legend>Instructions:</legend>
-                <input type="text" name="instructions1" size="50"></input>
+                <textarea name="instructions1" rows="4" maxLength="200" placeholder="Enter your instruction step here - we'll number for you"></textarea>
             </fieldset>
         </form>        
     </div>
