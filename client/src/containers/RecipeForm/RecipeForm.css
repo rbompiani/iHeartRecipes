@@ -7,6 +7,10 @@ form {
     padding: 20px;
 }
 
+input:focus, textarea:focus {
+    background-color: lightgreen;
+}
+
 label {
     display: block;
 }
@@ -17,6 +21,8 @@ fieldset {
 }
 
 textarea, input[type="text"], input[type="number"], select{
+    outline: none;
+    border: solid 1px lightgrey;
     padding: 10px;
     box-sizing: border-box;
     border-radius: 5px;
@@ -40,4 +46,17 @@ input[type="radio"]+label {
     display: grid;
     grid-template-columns: 1fr 1fr 3fr;
     gap: 10px;
+}
+
+.addButton {
+    color: white;
+    font-weight: bold;
+    background-color: darkgreen;
+    font-size: 20px;
+    height: 30px;
+    width: 30px;
+    margin-top: -30px;
+    padding: 5px;
+    box-sizing: border-box;
+    border-radius: 5px;
 }
