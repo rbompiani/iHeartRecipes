@@ -11,8 +11,11 @@ const InputInstruction = props => {
 
     return(
         <div className="instruction">
-                <textarea {...props.elementProps} onChange={props.changed} value={props.instructionTxt} onChange={props.changed}/>
-                <AddButton name="addInstructionButton" push={props.push}/>                  
+            <ol>
+                {props.value.map(element => (<li>{element}</li>))}
+            </ol>
+            <textarea {...props.elementProps} onChange={props.changed} value={props.instructionTxt} onChange={props.changed}/>
+            <AddButton name="addInstructionButton" push={props.push}/>                  
         </div>        
     )
 };

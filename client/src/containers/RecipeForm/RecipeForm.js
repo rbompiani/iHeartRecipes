@@ -38,7 +38,9 @@ class RecipeForm extends React.Component{
                 },
                 value:""
             },
-            img: "placeholder for now",
+            img: {
+                label: "image"
+            },
             yield:{
                 label:"yield",
                 type:"number", 
@@ -79,7 +81,7 @@ class RecipeForm extends React.Component{
 
             },
             instructions:{
-                label:"instruction",
+                label:"instructions",
                 type: "instruction",
                 instructions:[],
                 elementProps: {

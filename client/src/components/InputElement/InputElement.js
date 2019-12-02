@@ -50,7 +50,7 @@ const InputElement = (props) => {
             inputElement=<InputInstruction {...props}/>
             break;
     }
-
+    
     return(
         <div>
             <label htmlFor={props.label}>{props.label}</label>
