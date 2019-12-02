@@ -2,6 +2,7 @@ import React from "react";
 import "./RecipeForm.css";
 import InputElement from "../../components/InputElement/InputElement";
 import InputIngredient from "../../components/FormInputs/InputIngredient/InputIngredient";
+import axios from "axios";
 
 class RecipeForm extends React.Component{
     state = {
@@ -151,7 +152,12 @@ class RecipeForm extends React.Component{
         for(let key in this.state.recipeForm) {
             formData[key] = this.state.recipeForm[key].value
         }
+
+        formData["ingredients"]=formData["ingredients"].join();
+        formData["instructions"]=formData["instructions"].join();
+
         console.log(formData)
+        axios.post("/submit-recipe",formData);
     }
 
     render(){

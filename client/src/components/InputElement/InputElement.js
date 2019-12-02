@@ -1,7 +1,8 @@
 import React from "react";
 import InputIngredient from "../FormInputs/InputIngredient/InputIngredient";
 import InputTime from "../FormInputs/InputTime/InputTime";
-import InputInstruction from "../FormInputs/InputInstruction/InputInstruction"
+import InputInstruction from "../FormInputs/InputInstruction/InputInstruction";
+
 
 const InputElement = (props) => {
 
