@@ -10,7 +10,11 @@ const InputIngredient = props => {
     }
 
     return(
-        <div className="ingredient">
+        <div id="ingredients">
+            <ul>
+                {props.value.map(element => (<li>{element}</li>))}
+            </ul>
+            <div className="ingredient">
                 <input type="number" name="ingredientQty" value={props.ingredientQty} min="0" max="100" placeholder="1.5" onChange={props.changed}></input>
                 <select name="ingredientUnit" onChange={props.changed} value={props.ingredientUnit}>
                     <option value="">val</option>
@@ -23,7 +27,8 @@ const InputIngredient = props => {
                     })}
                 </select>
                 <input type="text" name="ingredientName" value={props.ingredientName} maxLength="50" placeholder="ingredient" onChange={props.changed}></input>
-                <AddButton name="addIngredientButton" push={props.push}/>                  
+            </div>
+            <AddButton name="addIngredientButton" push={props.push}/>                  
         </div>        
     )
 };
