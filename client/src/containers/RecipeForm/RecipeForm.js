@@ -100,7 +100,7 @@ class RecipeForm extends React.Component{
         //if getting time, combine qty and units
         if(event.target.name==="timeQty"||event.target.name==="timeUnit"){
             updatedFormElement[event.target.name] = event.target.value;
-            updatedFormElement.value = updatedFormElement.timeval + " " + updatedFormElement.unitsval; 
+            updatedFormElement.value = updatedFormElement.timeQty + " " + updatedFormElement.timeUnit; 
 
         // if getting ingredient, combine qty, units, and ingredient name    
         } else if(event.target.name==="ingredientQty"||event.target.name==="ingredientUnit"||event.target.name==="ingredientName"){
@@ -142,6 +142,16 @@ class RecipeForm extends React.Component{
         this.setState({recipeForm: updatedRecipeForm});
     }
 
+    recipeHandler = (event) =>{
+        event.preventDefault();
+        this.setState({loading:true});
+        const formData = {};
+        for(let key in this.state.recipeForm) {
+            formData[key] = this.state.recipeForm[key].value
+        }
+        console.log(formData)
+    }
+
     render(){
 
         // create array from recipe form state object
@@ -156,7 +166,7 @@ class RecipeForm extends React.Component{
         return(
             <div>
                 <h2>Add a Recipe</h2>
-                <form>
+                <form onSubmit={this.recipeHandler}>
                     {formElementsArray.map(formElement => {
                         return(
                             <InputElement 
@@ -166,6 +176,7 @@ class RecipeForm extends React.Component{
                             />
                         )
                     })}
+                    <button type="submit">Add Recipe</button>
                 </form>        
             </div>            
         );

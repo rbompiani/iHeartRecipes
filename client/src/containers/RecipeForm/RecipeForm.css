@@ -48,15 +48,25 @@ input[type="radio"]+label {
     gap: 10px;
 }
 
-.addButton {
+button {
     color: white;
     font-weight: bold;
-    background-color: darkgreen;
-    font-size: 20px;
+    background-color: green;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: none;
+    width: 200px;
     height: 30px;
+}
+
+button:hover {
+    cursor: pointer;
+    background-color: darkgreen;
+}
+.addButton {
     width: 30px;
     margin-top: -30px;
     padding: 5px;
-    box-sizing: border-box;
-    border-radius: 5px;
+    font-size: 20px;
 }
+

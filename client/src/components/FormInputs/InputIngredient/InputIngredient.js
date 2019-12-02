@@ -11,7 +11,7 @@ const InputIngredient = props => {
 
     return(
         <div className="ingredient">
-                <input type="number" name="ingredientQty" value={props.ingredientQty} min="1" max="100" placeholder="1.5" onChange={props.changed}></input>
+                <input type="number" name="ingredientQty" value={props.ingredientQty} min="0" max="100" placeholder="1.5" onChange={props.changed}></input>
                 <select name="ingredientUnit" onChange={props.changed} value={props.ingredientUnit}>
                     <option value="">val</option>
                     {measuresArray.map(u=>{
