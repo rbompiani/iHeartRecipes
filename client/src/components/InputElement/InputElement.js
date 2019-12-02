@@ -1,5 +1,6 @@
 import React from "react";
 import InputIngredient from "../FormInputs/InputIngredient/InputIngredient";
+import InputTime from "../FormInputs/InputTime/InputTime";
 
 const InputElement = (props) => {
 
@@ -28,24 +29,22 @@ const InputElement = (props) => {
             break;
         case("number"):
             let units;
-            if(props.units){
-                units=(
-                    <select name="timeUnit">
-                        {props.units.map(u=>(<option value={u}>{u}</option>))} 
-                    </select>
-                )    
-            } else if(props.unit) {
+            if(props.unit) {
                 units=<span>{props.unit}</span>
             }
             inputElement=(
                 <div>
-                    <input type="number" {...props.elementProps} onChange={props.changed}/>
+                    <input type="number" {...props.elementProps} value={props.value} onChange={props.changed}/>
                     {units}
                 </div>
             )
             break;
         case("ingredient"):
-            inputElement=<InputIngredient />;
+            inputElement=<InputIngredient {...props}/>;
+            break;
+        case("time"):
+            inputElement=<InputTime {...props}/>;
+            break;  
     }
 
     return(

@@ -47,17 +47,21 @@ class RecipeForm extends React.Component{
                     min:"1",
                     max:"100"                    
                 },
-                unit:"servings"
+                unit:"servings",
+                value:""
             },
             time:{
                 label:"time",
-                type:"number", 
+                type:"time", 
                 elementProps: {
                     name:"time",
                     min:"1",
                     max:"200"                    
                 },
-                units:["minutes","hours"]
+                units:["minutes","hours"],
+                unitsval:"",
+                timeval:0,
+                value:""
             },
             ingredients:{
                 label:"ingredients",
@@ -65,6 +69,10 @@ class RecipeForm extends React.Component{
                 ingredients:[],
                 elementProps: {
                     name:"ingredients"                   
+                },
+                units:{
+                    volume: ["tsp","tbsp","fl oz","c","pt","gal","mL","L"],
+                    weight: ["oz","lb", "mg", "g"]
                 }
             },
             instructions:{
@@ -82,9 +90,19 @@ class RecipeForm extends React.Component{
         console.log(event.target.value);
         const updatedRecipeForm = {...this.state.recipeForm};
         const updatedFormElement = {...updatedRecipeForm[inputId]};
-        updatedFormElement.value = event.target.value;
+        if(event.target.name==="time"||"timeUnit"){
+            event.target.name==="time"? updatedFormElement.timeval = parseInt(event.target.value) : updatedFormElement.unitsval = event.target.value;
+            updatedFormElement.value = updatedFormElement.timeval + " " + updatedFormElement.unitsval; 
+        } else {
+            updatedFormElement.value = event.target.value;
+        }
         updatedRecipeForm[inputId] = updatedFormElement;
         this.setState({recipeForm: updatedRecipeForm});
+    }
+
+    getTimeHandler= (event,inputId) => {
+        
+        console.log(event.target.name);
     }
 
     render(){
@@ -102,7 +120,14 @@ class RecipeForm extends React.Component{
             <div>
                 <h2>Add a Recipe</h2>
                 <form>
-                    {formElementsArray.map(formElement => {return(<InputElement {...formElement.config} changed={(event)=> this.inputChangedHandler(event,formElement.id)}/>)})}
+                    {formElementsArray.map(formElement => {
+                        return(
+                            <InputElement 
+                                {...formElement.config} 
+                                changed={(event)=> this.inputChangedHandler(event,formElement.id)} 
+                            />
+                        )
+                    })}
                 </form>        
             </div>            
         );
