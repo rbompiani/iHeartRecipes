@@ -1,6 +1,7 @@
 import React from "react";
 import InputIngredient from "../FormInputs/InputIngredient/InputIngredient";
 import InputTime from "../FormInputs/InputTime/InputTime";
+import InputInstruction from "../FormInputs/InputInstruction/InputInstruction"
 
 const InputElement = (props) => {
 
@@ -44,7 +45,10 @@ const InputElement = (props) => {
             break;
         case("time"):
             inputElement=<InputTime {...props}/>;
-            break;  
+            break;
+        case("instruction"):
+            inputElement=<InputInstruction {...props}/>
+            break;
     }
 
     return(

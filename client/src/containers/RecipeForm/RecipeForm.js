@@ -79,12 +79,14 @@ class RecipeForm extends React.Component{
 
             },
             instructions:{
-                label:"instructions",
-                type: "instructions",
+                label:"instruction",
+                type: "instruction",
                 instructions:[],
                 elementProps: {
-                    name:"instructions"                   
-                }
+                    name:"instructionTxt"                   
+                },
+                instructionTxt: "",
+                value: []
             }
         }
     }
@@ -102,9 +104,11 @@ class RecipeForm extends React.Component{
 
         // if getting ingredient, combine qty, units, and ingredient name    
         } else if(event.target.name==="ingredientQty"||event.target.name==="ingredientUnit"||event.target.name==="ingredientName"){
-            console.log("we're in!");
             updatedFormElement[event.target.name] = event.target.value;
-            
+        
+        // for instructions
+        } else if(event.target.name==="instructionTxt"){
+            updatedFormElement[event.target.name] = event.target.value;
         }else{
             updatedFormElement.value = event.target.value;
         }
@@ -127,9 +131,12 @@ class RecipeForm extends React.Component{
             updatedRecipeForm["ingredients"] = updatedFormElement;
 
 
-        }else if(event.target.name === "addDirectionButton"){
+        }else if(event.target.name === "addInstructionButton"){
             updatedFormElement = {...updatedRecipeForm["instructions"]};
-            console.log("nothing here yet");
+            updatedFormElement.value.push(updatedFormElement.instructionTxt);
+            // clear text area
+            updatedFormElement.instructionTxt="";
+            updatedRecipeForm["instructions"]= updatedFormElement
         }
 
         this.setState({recipeForm: updatedRecipeForm});
