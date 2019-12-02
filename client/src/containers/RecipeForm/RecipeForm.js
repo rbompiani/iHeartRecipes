@@ -54,26 +54,29 @@ class RecipeForm extends React.Component{
                 label:"time",
                 type:"time", 
                 elementProps: {
-                    name:"time",
                     min:"1",
                     max:"200"                    
                 },
                 units:["minutes","hours"],
-                unitsval:"",
-                timeval:0,
+                timeUnit:"",
+                timeQty:0,
                 value:""
             },
             ingredients:{
                 label:"ingredients",
                 type:"ingredient",
-                ingredients:[],
                 elementProps: {
                     name:"ingredients"                   
                 },
                 units:{
                     volume: ["tsp","tbsp","fl oz","c","pt","gal","mL","L"],
                     weight: ["oz","lb", "mg", "g"]
-                }
+                },
+                ingredientQty: 0,
+                ingredientUnit: "",
+                ingredientName: "",
+                value: []
+
             },
             instructions:{
                 label:"instructions",
@@ -88,21 +91,48 @@ class RecipeForm extends React.Component{
 
     inputChangedHandler= (event, inputId) =>{
         console.log(event.target.value);
+        console.log(event.target.name);
         const updatedRecipeForm = {...this.state.recipeForm};
         const updatedFormElement = {...updatedRecipeForm[inputId]};
-        if(event.target.name==="time"||"timeUnit"){
-            event.target.name==="time"? updatedFormElement.timeval = parseInt(event.target.value) : updatedFormElement.unitsval = event.target.value;
+
+        //if getting time, combine qty and units
+        if(event.target.name==="timeQty"||event.target.name==="timeUnit"){
+            updatedFormElement[event.target.name] = event.target.value;
             updatedFormElement.value = updatedFormElement.timeval + " " + updatedFormElement.unitsval; 
-        } else {
+
+        // if getting ingredient, combine qty, units, and ingredient name    
+        } else if(event.target.name==="ingredientQty"||event.target.name==="ingredientUnit"||event.target.name==="ingredientName"){
+            console.log("we're in!");
+            updatedFormElement[event.target.name] = event.target.value;
+            
+        }else{
             updatedFormElement.value = event.target.value;
         }
         updatedRecipeForm[inputId] = updatedFormElement;
         this.setState({recipeForm: updatedRecipeForm});
     }
 
-    getTimeHandler= (event,inputId) => {
-        
-        console.log(event.target.name);
+    pushData = (event, inputId) =>{
+        const updatedRecipeForm = {...this.state.recipeForm};
+        let updatedFormElement={};
+
+        if(event.target.name === "addIngredientButton"){
+            updatedFormElement = {...updatedRecipeForm["ingredients"]};
+            updatedFormElement.value.push(updatedFormElement.ingredientQty + "  " + updatedFormElement.ingredientUnit + "  " + updatedFormElement.ingredientName) 
+            //clear input fields
+            updatedFormElement.ingredientName="";
+            updatedFormElement.ingredientQty=0;
+            updatedFormElement.ingredientUnit="";
+
+            updatedRecipeForm["ingredients"] = updatedFormElement;
+
+
+        }else if(event.target.name === "addDirectionButton"){
+            updatedFormElement = {...updatedRecipeForm["instructions"]};
+            console.log("nothing here yet");
+        }
+
+        this.setState({recipeForm: updatedRecipeForm});
     }
 
     render(){
@@ -125,6 +155,7 @@ class RecipeForm extends React.Component{
                             <InputElement 
                                 {...formElement.config} 
                                 changed={(event)=> this.inputChangedHandler(event,formElement.id)} 
+                                push={this.pushData}
                             />
                         )
                     })}
