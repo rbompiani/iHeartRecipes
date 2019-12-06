@@ -13,11 +13,18 @@ app.get('/express_backend', (req,res) => {
 })
 
 // Syncing our sequelize models and then starting our Express app
-db.sequelize.sync({ force: true }).then(function() {
+db.sequelize.sync().then(function() {
     app.listen(port, function() {
         console.log("App listening on PORT " + port);
     });
 });
+
+// GET route for recipebox
+app.get('/recipebox', (req,res) => {
+    db.Recipe.findAll().then(recipes=>{
+        res.send({recipes});
+    })
+})
 
 //should submit-recipe to database//
 app.post('/submit-recipe', (req, res) => {
