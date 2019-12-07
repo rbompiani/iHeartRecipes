@@ -19,12 +19,49 @@ db.sequelize.sync().then(function() {
     });
 });
 
-// GET route for recipebox
+// SIGNUP route for new accounts
+app.post('/signup', (req,res) => {
+    db.Users.findOrCreate({
+        where: {
+            email:email,
+            password: password,
+            first: first,
+            last: last
+        }
+    }).then(([user,created]) => {
+        if (!created){
+            res.send('Something went wrong');
+            res.end();
+        }
+    })
+})
+
+// LOG IN route for users to log in
+app.get('/login', (req,res) =>{
+    db.Users.findOne({
+        where: {email: email, password: password}
+    }).then(user => {
+        res.send({user});
+    })
+})
+
+// LOG OUT route for users to log in
+app.get('/logout', (req,res) =>{
+    db.Users.findOne({
+        where: {email: email}
+    }).then(user => {
+        res.send({user});
+      })
+})
+
+// GET RECIPES route for recipebox
 app.get('/recipebox', (req,res) => {
     db.Recipe.findAll().then(recipes=>{
         res.send({recipes});
     })
 })
+
+
 
 //should submit-recipe to database//
 app.post('/submit-recipe', (req, res) => {
