@@ -12,6 +12,12 @@ const InputElement = (props) => {
         case("text"):
             inputElement=<input type="text" {...props.elementProps} value={props.value} onChange={props.changed} />
             break;
+        case("email"):
+            inputElement=<input type="email" {...props.elementProps} value={props.value} onChange={props.changed} />
+            break;
+        case("password"):
+            inputElement=<input type="password" {...props.elementProps} value={props.value} onChange={props.changed} />
+        break;
         case("textarea"):
             inputElement=<textarea {...props.elementProps} onChange={props.changed}/>
             break;

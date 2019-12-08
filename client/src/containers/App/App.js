@@ -4,6 +4,7 @@ import {BrowserRouter, Route} from "react-router-dom";
 import Header from "../Header/Header";
 import RecipeBox from "../RecipeBox/RecipeBox";
 import RecipeForm from "../RecipeForm/RecipeForm";
+import UserAuthForm from "../UserAuthForm/UserAuthForm";
 
 class App extends Component {
 state = {
@@ -33,6 +34,7 @@ state = {
         <div>
           {/*Render the newly fetched data inside of this.state.data*/} 
           <Header />
+          <Route path="/auth" exact component={UserAuthForm} />
           <Route path="/" exact component={RecipeBox} />
           <Route path="/new-recipe" exact component={RecipeForm} />
           <p className="App-intro">{this.state.data}</p>

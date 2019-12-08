@@ -37,41 +37,44 @@ app.post('/signup', (req,res) => {
 
     let hashedPassword;
     try {
-       bcrypt.hash(password, 12).then(function(res){hashedPassword=res}); 
+       bcrypt.hash(password, 12).then(function(hashed){
+           hashedPassword=hashed
+
+            db.Users.findOrCreate({
+                where: {
+                    email:email,
+                    password: hashedPassword,
+                    first: first,
+                    last: last
+                }
+            }).then(([user,created]) => {
+                if (!created){
+                    res.send('Something went wrong');
+                    res.end();
+                } else {
+                    let token;
+                    try{
+                        token = jwt.sign(
+                            {userId: user.id, email: user.email}, 
+                            "I'm making curry chicken pitas for lunch", 
+                            {expiresIn: '1hr'}
+                        );    
+                    } catch (err){
+                        const error = new HttpError('Signin failed. Please try again', 500);
+                        return next(error);
+                    }
+        
+                    res
+                    .status(200)
+                    .json({userId: user.id, email: user.email, token: token})           
+                }
+            })
+        }); 
     } catch (err) {
         const error = new HttpError('Could not create user. Please try again', 500);
         return next(error);
     }
     
-    db.Users.findOrCreate({
-        where: {
-            email:email,
-            password: hashedPassword,
-            first: first,
-            last: last
-        }
-    }).then(([user,created]) => {
-        if (!created){
-            res.send('Something went wrong');
-            res.end();
-        } else {
-            let token;
-            try{
-                token = jwt.sign(
-                    {userId: user.id, email: user.email}, 
-                    "I'm making curry chicken pitas for lunch", 
-                    {expiresIn: '1hr'}
-                );    
-            } catch (err){
-                const error = new HttpError('Signin failed. Please try again', 500);
-                return next(error);
-            }
-
-            res
-            .status(200)
-            .json({userId: user.id, email: user.email, token: token})           
-        }
-    })
 })
 
 // LOG IN route for users to log in
