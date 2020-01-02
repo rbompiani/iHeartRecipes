@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import {BrowserRouter, Route} from "react-router-dom";
+import {BrowserRouter, Route, Redirect} from "react-router-dom";
 import Header from "../Header/Header";
 import RecipeBox from "../RecipeBox/RecipeBox";
 import RecipeForm from "../RecipeForm/RecipeForm";
@@ -34,10 +34,20 @@ state = {
         <div>
           {/*Render the newly fetched data inside of this.state.data*/} 
           <Header />
-          <Route path="/auth" exact component={UserAuthForm} />
-          <Route path="/" exact component={RecipeBox} />
-          <Route path="/new-recipe" exact component={RecipeForm} />
-          <p className="App-intro">{this.state.data}</p>
+
+          <Route path="/auth" exact >
+            <UserAuthForm />
+          </Route>
+
+          <Route path="/" exact >
+            <RecipeBox />
+          </Route>
+
+          <Route path="/new-recipe" exact >
+            <RecipeForm /> 
+          </Route>
+
+          <Redirect to="/" />
         </div>      
       </BrowserRouter>
     );
