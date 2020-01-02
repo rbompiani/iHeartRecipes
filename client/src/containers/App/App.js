@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import {BrowserRouter, Route, Redirect} from "react-router-dom";
+import {BrowserRouter, Route, Redirect, Switch} from "react-router-dom";
 import Header from "../Header/Header";
 import RecipeBox from "../RecipeBox/RecipeBox";
 import RecipeForm from "../RecipeForm/RecipeForm";
@@ -32,22 +32,33 @@ state = {
     return (
       <BrowserRouter>
         <div>
-          {/*Render the newly fetched data inside of this.state.data*/} 
+          
           <Header />
+          
+          <Switch >
+            {
+              /*Unauthorized Routes*/
+            } 
 
-          <Route path="/auth" exact >
-            <UserAuthForm />
-          </Route>
+            <Route path="/auth" exact >
+              <UserAuthForm />
+            </Route>
 
-          <Route path="/" exact >
-            <RecipeBox />
-          </Route>
+            {
+              /*Authorized Routes*/
+            } 
 
-          <Route path="/new-recipe" exact >
-            <RecipeForm /> 
-          </Route>
+            <Route path="/" exact >
+              <RecipeBox />
+            </Route>
 
-          <Redirect to="/" />
+            <Route path="/new-recipe" exact >
+              <RecipeForm /> 
+            </Route>
+
+            <Redirect to="/" />
+          </Switch>
+
         </div>      
       </BrowserRouter>
     );
