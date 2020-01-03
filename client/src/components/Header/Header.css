@@ -1,6 +1,9 @@
 header {
     background-color: green;
-    height: 40px;
+}
+
+header > * {
+    display: inline-block;
 }
 
 .appLogo {

@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useContext }from "react";
 import InputElement from "../../components/InputElement/InputElement";
 import axios from "axios";
+import AuthContext from "../../shared/auth-context";
+
+console.log("testing");
 
 class SignUp extends React.Component {
 
@@ -8,7 +11,10 @@ class SignUp extends React.Component {
         isLogin: false
     }
 
-    signupHandler = (event) => {
+    static contextType =  AuthContext;
+    
+    
+    signupHandler = (event, auth) => {
         event.preventDefault();
         // store form data
         const data = new FormData(event.target);
@@ -20,7 +26,10 @@ class SignUp extends React.Component {
         }
 
         console.log(formData);
-        axios.post("/signup",formData).then(function(response){console.log(response)});
+        axios.post("/signup",formData).then(function(response){
+            console.log(response);
+            auth.login();
+        });
 
     }
 
@@ -31,10 +40,11 @@ class SignUp extends React.Component {
     }
 
     render() {
+        const auth = this.context;
         return (
             <div>
                 <h2>{this.state.isLogin ? "Log In" : "Sign Up"}</h2>
-                <form onSubmit={this.signupHandler}>
+                <form onSubmit={event => this.signupHandler(event, auth)}>
                     { !this.state.isLogin &&
                         <InputElement label="first" type="text" 
                             elementProps={{  

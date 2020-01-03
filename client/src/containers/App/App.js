@@ -1,14 +1,18 @@
-import React, { Component } from 'react';
+import React, { Component, useCallback } from 'react';
 import './App.css';
 import {BrowserRouter, Route, Redirect, Switch} from "react-router-dom";
-import Header from "../Header/Header";
+import Header from "../../components/Header/Header";
 import RecipeBox from "../RecipeBox/RecipeBox";
 import RecipeForm from "../RecipeForm/RecipeForm";
 import UserAuthForm from "../UserAuthForm/UserAuthForm";
+import AuthContext from "../../shared/auth-context";
+
+
 
 class App extends Component {
-state = {
-    data: null
+  state = {
+    data: null,
+    isLoggedIn: false
   };
 
   componentDidMount() {
@@ -29,38 +33,45 @@ state = {
   };
 
   render() {
+
+    const login = () => this.setState({isLoggedIn: true});
+    const logout = () => this.setState({isLoggedIn: false});
+
+    let routes;
+
+    if (this.state.isLoggedIn){
+      routes = (
+        <Switch >
+          <Route path="/" exact >
+            <RecipeBox />
+          </Route>
+
+          <Route path="/new-recipe" exact >
+            <RecipeForm /> 
+          </Route>
+
+          <Redirect to="/" />         
+        </Switch>
+      );
+    } else {
+      routes = (
+        <Switch>
+          <Route path="/auth" exact>
+            <UserAuthForm />
+          </Route>
+          <Redirect to="/auth" />     
+        </Switch>
+      );
+    }
+
     return (
-      <BrowserRouter>
-        <div>
-          
+      <AuthContext.Provider value={ {isLoggedIn : this.state.isLoggedIn, login : login, logout : logout} }>
+        <BrowserRouter>
           <Header />
-          
-          <Switch >
-            {
-              /*Unauthorized Routes*/
-            } 
+          {routes}  
+        </BrowserRouter>        
+      </AuthContext.Provider>
 
-            <Route path="/auth" exact >
-              <UserAuthForm />
-            </Route>
-
-            {
-              /*Authorized Routes*/
-            } 
-
-            <Route path="/" exact >
-              <RecipeBox />
-            </Route>
-
-            <Route path="/new-recipe" exact >
-              <RecipeForm /> 
-            </Route>
-
-            <Redirect to="/" />
-          </Switch>
-
-        </div>      
-      </BrowserRouter>
     );
   }
 }
