@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const HttpError = require('./server_models/http-error');
+const checkAuth = require('./middleware/check-auth');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -78,40 +79,49 @@ app.post('/signup', (req,res) => {
 })
 
 // LOG IN route for users to log in
-app.get('/login', (req,res) =>{
-    const {email, password} = req.body;
+app.get('/login', (req,res) => {
+    const {email, password} = req.query;
+    console.log("here's your request: ", email, password);
 
     db.Users.findOne({
         where: {email: email}
     }).then(user => {
         let isValidPassword = false;
         try {
-           bcrypt.compare(password, user.password).then(function(res){isValidPassword = res}); 
+           bcrypt.compare(password, user.password).then(function(bRes){
+                isValidPassword = bRes;
+                if(!isValidPassword){
+                    console.log("not the right credentials, bro");
+                    res
+                    .status(401)
+                    .json({error: "Could not log you in. Please check your credentials and try again"});
+                } else {
+                    let token;
+                    try {
+                        token = jwt.sign(
+                            {user: user.id, email: user.email},
+                            "I'm making curry chicken pitas for lunch", 
+                            {expiresIn: '1hr'}
+                        )
+                    } catch (err) {
+                        const error = new HttpError("Server error while logging in. Please try again", 500);
+                        return next(error)
+                    }
+                    res
+                    .status(200)
+                    .json({userId: user.id, email: user.email, token: token});
+                }
+            }); 
         } catch (err) {
             const error = new HttpError("Could not log you in. Please check your credentials and try again", 500);
             return next(error);
         }
 
-        if(!isValidPassword){
-            console.log("not the right credentials, bro");
-        } else {
-            let token;
-            try {
-                token = jwt.sign(
-                    {user: user.id, email: user.email},
-                    "I'm making curry chicken pitas for lunch", 
-                    {expiresIn: '1hr'}
-                )
-            } catch (err) {
-                const error = new HttpError("Server error while logging in. Please try again", 500);
-                return next(error)
-            }
-            res
-            .status(200)
-            .json({userId: user.id, email: user.email, token: token});
-        }
     })
 })
+
+// check for token to continue to following routes
+app.use(checkAuth);
 
 // LOG OUT route for users to log in
 app.get('/logout', (req,res) =>{

@@ -3,33 +3,67 @@ import InputElement from "../../components/InputElement/InputElement";
 import axios from "axios";
 import AuthContext from "../../shared/auth-context";
 
-console.log("testing");
-
 class SignUp extends React.Component {
 
     state = {
-        isLogin: false
+        isLogin: true
     }
 
     static contextType =  AuthContext;
     
     
-    signupHandler = (event, auth) => {
+    authSubmitHandler = (event, auth) => {
         event.preventDefault();
-        // store form data
         const data = new FormData(event.target);
-        const formData = {
-            first : data.get('first'),
-            last : data.get('last'),
-            email : data.get('email'),
-            password : data.get('password')            
-        }
 
-        console.log(formData);
-        axios.post("/signup",formData).then(function(response){
-            console.log(response);
-            auth.login();
-        });
+        if(this.state.isLogin) {
+
+            //get route for LOG IN
+
+            // store form data
+            const formData = {
+                email : data.get('email'),
+                password : data.get('password')            
+            }
+            console.log("we're finding an existing user 2", formData);
+
+            axios.get(
+                "/login",
+                {
+                    params: {
+                        email : data.get('email'),
+                        password : data.get('password')  
+                    },
+                    headers: {
+                        "Authorization" : `Bearer ${auth.token}`
+                    }
+                }
+            ).then(function(response){
+                const responseData = response.data;
+                console.log(responseData.token);
+                auth.login(responseData.token);
+            });
+
+        } else {
+
+
+            // post route for SIGN UP
+
+            // store form data
+            const formData = {
+                first : data.get('first'),
+                last : data.get('last'),
+                email : data.get('email'),
+                password : data.get('password')            
+            }
+
+            console.log("we're creating a new user", formData);
+            axios.post("/signup",formData).then(function(response){
+                const responseData = response.data;
+                console.log(responseData.token);
+                auth.login(responseData.token);
+            });
+        }
 
     }
 
@@ -41,11 +75,13 @@ class SignUp extends React.Component {
 
     render() {
         const auth = this.context;
+
         return (
             <div>
                 <h2>{this.state.isLogin ? "Log In" : "Sign Up"}</h2>
-                <form onSubmit={event => this.signupHandler(event, auth)}>
-                    { !this.state.isLogin &&
+                <form onSubmit={event => this.authSubmitHandler(event, auth)}>                  
+                
+                    { !this.state.isLogin && (
                         <InputElement label="first" type="text" 
                             elementProps={{  
                                 name:"first",
@@ -55,7 +91,7 @@ class SignUp extends React.Component {
                                 required: true,                  
                             }}
                         />
-                    }
+                    )}
                     { !this.state.isLogin &&
                         <InputElement label="last" type="text"
                             elementProps={{  

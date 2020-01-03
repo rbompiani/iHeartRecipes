@@ -12,7 +12,8 @@ import AuthContext from "../../shared/auth-context";
 class App extends Component {
   state = {
     data: null,
-    isLoggedIn: false
+    isLoggedIn: false,
+    token: null
   };
 
   componentDidMount() {
@@ -34,8 +35,8 @@ class App extends Component {
 
   render() {
 
-    const login = () => this.setState({isLoggedIn: true});
-    const logout = () => this.setState({isLoggedIn: false});
+    const login = (token) => this.setState({isLoggedIn: true, token: token});
+    const logout = () => this.setState({isLoggedIn: false, token: null});
 
     let routes;
 
@@ -65,7 +66,7 @@ class App extends Component {
     }
 
     return (
-      <AuthContext.Provider value={ {isLoggedIn : this.state.isLoggedIn, login : login, logout : logout} }>
+      <AuthContext.Provider value={ {isLoggedIn : this.state.isLoggedIn, token: this.state.token, login : login, logout : logout} }>
         <BrowserRouter>
           <Header />
           {routes}  

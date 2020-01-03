@@ -1,14 +1,23 @@
 import React from "react";
-import "./RecipeBox.css";
 import axios from "axios";
+
+import AuthContext from "../../shared/auth-context";
 import RecipeData from "../../RecipeData";
 import RecipeCard from "../../components/RecipeCard/RecipeCard";
+
+import "./RecipeBox.css";
 
 class RecipeBox extends React.Component {
     state=RecipeData;
 
+    static contextType =  AuthContext;
+
     componentDidMount () {
-        axios.get("/recipebox").then(response => {
+        axios.get("/recipebox",{
+            headers: {
+                "Authorization" : `Bearer ${this.context.token}`
+            }
+        }).then(response => {
             this.setState(response.data);
         });
     }
@@ -22,6 +31,7 @@ class RecipeBox extends React.Component {
     };
 
     render(){
+
         return(
             <div id="recipeBox">
                 {this.state.recipes.map((recipe, idx) =>{
