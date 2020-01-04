@@ -1,8 +1,6 @@
-import React from "react";
-import "./UserLogo.css";
+import React from 'react';
+import './UserLogo.css';
 
-const UserLogo = props => (
-    <img className="userLogo" />
-)
+const UserLogo = props => <img className="userLogo" alt="avatar" />;
 
 export default UserLogo;

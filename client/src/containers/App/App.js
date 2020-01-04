@@ -1,4 +1,4 @@
-import React, { Component, useCallback } from 'react';
+import React, { Component } from 'react';
 import './App.css';
 import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
 import Header from '../../components/Header/Header';
@@ -15,7 +15,37 @@ class App extends Component {
 		userId: null
 	};
 
+	login = (token, uid) => {
+		this.setState({
+			isLoggedIn: true,
+			token: token,
+			userId: uid
+		});
+
+		const tokenExpirationDate = new Date(new Date().getTime() + 1000 * 60 * 60);
+		localStorage.setItem(
+			'userData',
+			JSON.stringify({ userId: uid, token: token })
+		);
+	};
+
+	logout = () => {
+		this.setState({
+			isLoggedIn: false,
+			token: null,
+			userId: null
+		});
+		localStorage.removeItem('userData');
+	};
+
 	componentDidMount() {
+		// check local storage for user id
+		const storedUserData = JSON.parse(localStorage.getItem('userData'));
+		console.log(storedUserData);
+		if (storedUserData && storedUserData.token) {
+			this.login(storedUserData.token, storedUserData.userId);
+		}
+
 		// Call our fetch function below once the component mounts
 		this.callBackendAPI()
 			.then(res => this.setState({ data: res.express }))
@@ -33,20 +63,6 @@ class App extends Component {
 	};
 
 	render() {
-		const login = (token, uid) =>
-			this.setState({
-				isLoggedIn: true,
-				token: token,
-				userId: uid
-			});
-
-		const logout = () =>
-			this.setState({
-				isLoggedIn: false,
-				token: null,
-				userId: null
-			});
-
 		let routes;
 
 		if (this.state.isLoggedIn) {
@@ -80,8 +96,8 @@ class App extends Component {
 					isLoggedIn: this.state.isLoggedIn,
 					token: this.state.token,
 					userID: this.state.userId,
-					login: login,
-					logout: logout
+					login: this.login,
+					logout: this.logout
 				}}
 			>
 				<BrowserRouter>
