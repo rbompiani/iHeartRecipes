@@ -13,17 +13,19 @@ let logoutTimer;
 
 class App extends Component {
 	state = {
-		data: null,
 		isLoggedIn: false,
 		token: null,
 		userId: null,
 		tokenExpiration: null
 	};
 
+	// ------- LOG IN FUNCTION -------- //
 	login = (token, uid, expirationDate) => {
+		// create expiration timer for authentication
 		const tokenExpirationDate =
 			expirationDate || new Date(new Date().getTime() + 1000 * 60 * 60);
 
+		// add user authentication info to state
 		this.setState({
 			isLoggedIn: true,
 			token: token,
@@ -31,6 +33,7 @@ class App extends Component {
 			tokenExpiration: tokenExpirationDate
 		});
 
+		// add web authentication information to local storage
 		localStorage.setItem(
 			'userData',
 			JSON.stringify({
@@ -41,20 +44,24 @@ class App extends Component {
 		);
 	};
 
+	// ------- LOG OUT FUNCTION -------- //
 	logout = () => {
+		// remove authentication info from state
 		this.setState({
 			isLoggedIn: false,
 			token: null,
 			userId: null,
 			tokenExpiration: null
 		});
+		// clear authentication information from local storage
 		localStorage.removeItem('userData');
 	};
 
 	componentDidMount() {
-		// check local storage for user id
+		// check local storage for authentication information
 		const storedUserData = JSON.parse(localStorage.getItem('userData'));
-		console.log(storedUserData);
+
+		// if authentication info exists in local storage and timer is still valid, auto login user
 		if (
 			storedUserData &&
 			storedUserData.token &&
@@ -66,24 +73,10 @@ class App extends Component {
 				new Date(storedUserData.expiration)
 			);
 		}
-
-		// Call our fetch function below once the component mounts
-		this.callBackendAPI()
-			.then(res => this.setState({ data: res.express }))
-			.catch(err => console.log(err));
 	}
-	// Fetches our GET route from the Express server. (Note the route we are fetching matches the GET route from server.js
-	callBackendAPI = async () => {
-		const response = await fetch('/express_backend');
-		const body = await response.json();
-
-		if (response.status !== 200) {
-			throw Error(body.message);
-		}
-		return body;
-	};
 
 	render() {
+		// ------- GENERATE LOGOUT TIMER -------- //
 		if (this.state.token && this.state.tokenExpiration) {
 			const remainingTime =
 				this.state.tokenExpiration.getTime() - new Date().getTime();
@@ -92,6 +85,7 @@ class App extends Component {
 			clearTimeout(logoutTimer);
 		}
 
+		// ------- GENERATE ROUTES BASED ON USER LOGIN -------- //
 		let routes;
 
 		if (this.state.isLoggedIn) {
