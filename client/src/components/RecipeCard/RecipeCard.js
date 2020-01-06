@@ -2,13 +2,17 @@ import React, { useState } from 'react';
 
 import Heart from '../Heart/Heart';
 import Modal from '../../shared/Modal/Modal';
-
+import Ingredient from '../Ingredient/Ingredient.js';
+import Instruction from '../Instruction/Instruction.js';
 import './RecipeCard.css';
 
 const RecipeCard = props => {
 	const [showRecipe, setShowRecipe] = useState(false);
 	const openRecipeHandler = () => setShowRecipe(true);
 	const closeRecipeHandler = () => setShowRecipe(false);
+
+	const ingredientsList = props.ingredients.split(',');
+	const instructionsList = props.instructions.split(',');
 
 	return (
 		<React.Fragment>
@@ -19,8 +23,16 @@ const RecipeCard = props => {
 			>
 				<img className="cardThumbnail" src={props.img} />
 				<div>{props.description}</div>
-				<div>{props.ingredients}</div>
-				<div>{props.instructions}</div>
+				<ul>
+					{ingredientsList.map(ing => {
+						return <Ingredient ingredient={ing} />;
+					})}
+				</ul>
+				<ol>
+					{instructionsList.map(inst => {
+						return <Instruction instruction={inst} />;
+					})}
+				</ol>
 				<span className="category">{props.category}</span>
 				<span className="time">{props.time}</span>
 				<Heart isFav={props.isFav} item={props.id} click={props.heartClick} />

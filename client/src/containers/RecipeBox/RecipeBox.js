@@ -35,7 +35,7 @@ class RecipeBox extends React.Component {
 	render() {
 		return (
 			<div id="recipeBox">
-				{this.state.recipes.map((recipe, idx) => {
+				{this.state.recipes.map(recipe => {
 					return (
 						<RecipeCard
 							key={recipe.id}
