@@ -180,7 +180,7 @@ class RecipeForm extends React.Component {
 		return (
 			<div>
 				<h2>Add a Recipe</h2>
-				<form onSubmit={this.recipeHandler}>
+				<form className="recipeForm" onSubmit={this.recipeHandler}>
 					{formElementsArray.map(formElement => {
 						return (
 							<InputElement

@@ -1,72 +1,76 @@
-form {
-    background-color: white;
-    box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, .3);
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 20px;
-    padding: 20px;
+.recipeForm {
+	background-color: white;
+	box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.3);
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	gap: 20px;
+	padding: 20px;
 }
 
-input:focus, textarea:focus {
-    background-color: lightgreen;
+input:focus,
+textarea:focus {
+	background-color: lightgreen;
 }
 
 label {
-    display: block;
+	display: block;
 }
 
 fieldset {
-    border: none;
-    padding: 0px;
+	border: none;
+	padding: 0px;
 }
 
-textarea, input[type="text"], input[type="number"], select{
-    outline: none;
-    border: solid 1px lightgrey;
-    padding: 10px;
-    box-sizing: border-box;
-    border-radius: 5px;
-    margin-bottom: 20px;
+textarea,
+input[type='text'],
+input[type='number'],
+select {
+	outline: none;
+	border: solid 1px lightgrey;
+	padding: 10px;
+	box-sizing: border-box;
+	border-radius: 5px;
+	margin-bottom: 20px;
 }
 
-textarea, input[type="text"]{
-    width: 100%;
+textarea,
+input[type='text'] {
+	width: 100%;
 }
 
 #category {
-    display: grid;
-    grid-template-columns: auto auto auto auto;
+	display: grid;
+	grid-template-columns: auto auto auto auto;
 }
 
-input[type="radio"]+label {
-    display: inline-block;
+input[type='radio'] + label {
+	display: inline-block;
 }
 
 .ingredient {
-    display: grid;
-    grid-template-columns: 1fr 1fr 3fr;
-    gap: 10px;
+	display: grid;
+	grid-template-columns: 1fr 1fr 3fr;
+	gap: 10px;
 }
 
 button {
-    color: white;
-    font-weight: bold;
-    background-color: green;
-    box-sizing: border-box;
-    border-radius: 5px;
-    border: none;
-    width: 200px;
-    height: 30px;
+	color: white;
+	font-weight: bold;
+	background-color: green;
+	box-sizing: border-box;
+	border-radius: 5px;
+	border: none;
+	width: 200px;
+	height: 30px;
 }
 
 button:hover {
-    cursor: pointer;
-    background-color: darkgreen;
+	cursor: pointer;
+	background-color: darkgreen;
 }
 .addButton {
-    width: 30px;
-    margin-top: -30px;
-    padding: 5px;
-    font-size: 20px;
+	width: 30px;
+	margin-top: -30px;
+	padding: 5px;
+	font-size: 20px;
 }
-
