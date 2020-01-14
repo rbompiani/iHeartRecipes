@@ -35,6 +35,9 @@ Generate a shopping list from meal plans to make your grocery trips easier.
 Development is in progress toward a functional MVP (Features 1-3), after which a round of front-end styling will be applied.
 Features 4-5 will be added individually.
 
+Known issues and development progress can be tracked here:
+[Project Board](https://github.com/rbompiani/iHeartRecipes/projects/1)
+
 A wireframe of feature buildout can be found here:
 [Adobe XD Wireframe](https://xd.adobe.com/view/9b0cb70d-5cb6-45c9-4e9d-541deefa97d6-ed3d/)
 <p>&nbsp;</p>
