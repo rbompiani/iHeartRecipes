@@ -1,7 +1,7 @@
 # iHeartRecipes
 
 ## Description
-iHeartRecipes is a digital recipe box that allows users to add, and find and collect their favorite recipes, all in one place.  
+iHeartRecipes is a digital recipe box that allows users to add, find, and collect their favorite recipes, all in one place.  
 Add and save your own private recipes, search other recipes, and create weekly meal plans.  
 Generate a shopping list from meal plans to make your grocery trips easier. 
 
@@ -10,7 +10,7 @@ Generate a shopping list from meal plans to make your grocery trips easier.
 - Passwords are hashed and stored in an MYSQL Database
 - Forms implement client-side authentication (pending)
 #### 2) Create & Store Recipes
-- Passwords are hashed and stored in a MYSQL Database
+- Recipes are validated and stored in MYSQL database, linked by user
 - Forms implement client-side authentication (pending)
 #### 3) Search For New Recipes (pending)
 #### 4) Create a Weekly Meal Plan (pending)
