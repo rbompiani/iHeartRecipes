@@ -23,16 +23,18 @@ const RecipeCard = props => {
 			>
 				<img className="cardThumbnail" src={props.img} />
 				<div>{props.description}</div>
+				<h3>Ingredients</h3>
 				{ingredientsList.map(ing => {
 					return <Ingredient ingredient={ing} />;
 				})}
+				<h3>Instructions</h3>
 				<ol>
 					{instructionsList.map(inst => {
 						return <Instruction instruction={inst} />;
 					})}
 				</ol>
 				<span className="category">{props.category}</span>
-				<span className="time">{props.time}</span>
+				<span className="time">{props.time} minutes</span>
 				<Heart isFav={props.isFav} item={props.id} click={props.heartClick} />
 			</Modal>
 			<div className="recipeCard" onClick={openRecipeHandler}>
@@ -42,7 +44,7 @@ const RecipeCard = props => {
 					<p>{props.description}</p>
 					<div className="cardFooter">
 						<span className="category">{props.category}</span>
-						<span className="time">{props.time}</span>
+						<span className="time">{props.time} minutes</span>
 						<Heart
 							isFav={props.isFav}
 							item={props.id}
