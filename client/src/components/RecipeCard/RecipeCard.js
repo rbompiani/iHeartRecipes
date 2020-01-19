@@ -23,11 +23,9 @@ const RecipeCard = props => {
 			>
 				<img className="cardThumbnail" src={props.img} />
 				<div>{props.description}</div>
-				<ul>
-					{ingredientsList.map(ing => {
-						return <Ingredient ingredient={ing} />;
-					})}
-				</ul>
+				{ingredientsList.map(ing => {
+					return <Ingredient ingredient={ing} />;
+				})}
 				<ol>
 					{instructionsList.map(inst => {
 						return <Instruction instruction={inst} />;
