@@ -1,7 +1,9 @@
 import React from 'react';
-import InputElement from '../../components/InputElement/InputElement';
 import axios from 'axios';
+
+import InputElement from '../../components/InputElement/InputElement';
 import AuthContext from '../../shared/auth-context';
+import ImageUpload from '../../components/ImageUpload/ImageUpload';
 
 class SignUp extends React.Component {
 	state = {
@@ -34,7 +36,7 @@ class SignUp extends React.Component {
 						Authorization: `Bearer ${auth.token}`
 					}
 				})
-				.then(function(response) {
+				.then(function (response) {
 					const responseData = response.data;
 					console.log(responseData);
 					auth.login(responseData.token, responseData.userId);
@@ -51,7 +53,7 @@ class SignUp extends React.Component {
 			};
 
 			console.log("we're creating a new user", formData);
-			axios.post('/signup', formData).then(function(response) {
+			axios.post('/signup', formData).then(function (response) {
 				const responseData = response.data;
 				console.log(responseData.token);
 				auth.login(responseData.token);
@@ -70,6 +72,7 @@ class SignUp extends React.Component {
 
 		return (
 			<div>
+				<ImageUpload id="image" center />
 				<h2>{this.state.isLogin ? 'Log In' : 'Sign Up'}</h2>
 				<form onSubmit={event => this.authSubmitHandler(event, auth)}>
 					{!this.state.isLogin && (
